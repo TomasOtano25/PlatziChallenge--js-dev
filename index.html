@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+  </head>
+
+  <body class="bg-zinc-900 text-white">
+    <div class="flex flex-col justify-center items-center h-screen">
+      <h1 class="text-6xl mb-6">Generator Password</h1>
+
+      <form class="flex flex-col items-center" id="passwordForm">
+        <label class="text-xl mb-4" for="countCharacters"
+          >Cantidad caracteres</label
+        >
+        <input
+          name="countCharacters"
+          class="text-black px-2 py-1 rounded-sm w-full border"
+        />
+        <div class="mt-4 mb-4 text-center">
+          <span class="text-xl">¿Quieres que contenga?</span>
+        </div>
+        <div class="flex gap-x-2 mb-4">
+          <div class="flex flex-col items-center">
+            <label for="numeros">Numeros</label>
+            <input name="numbers" type="checkbox" checked="true" />
+          </div>
+
+          <div class="flex flex-col items-center">
+            <label for="lowercase">Minuscula</label>
+            <input name="lowercase" type="checkbox" checked="true" />
+          </div>
+
+          <div class="flex flex-col items-center">
+            <label for="uppercase">Minuscula</label>
+            <input name="uppercase" type="checkbox" checked="true" />
+          </div>
+
+          <div class="flex flex-col items-center">
+            <label for="symbols">Simbolos</label>
+            <input name="symbols" type="checkbox" checked="true" />
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          id="generate"
+          class="block bg-blue-500 px-2 py-1 rounded-md text-2xl mb-6 max-w-xs w-full"
+        >
+          Generate
+        </button>
+      </form>
+
+      <input
+        type="text"
+        id="password"
+        placeholder="Generated Password"
+        class="px-2 py-1 rounded-md text-black text-center text-xl max-w-md w-full"
+      />
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
