@@ -1,5 +1,12 @@
 import "./style.css";
 
+interface Check {
+  numbers: boolean;
+  lowercase: boolean;
+  uppercase: boolean;
+  symbols: boolean;
+}
+
 const input = document.querySelector<HTMLInputElement>("#password");
 
 const passwordForm = document.querySelector<HTMLFormElement>("#passwordForm")!;
@@ -13,15 +20,15 @@ passwordForm!.addEventListener("submit", async (e) => {
   const numbers = passwordForm["numbers"] as unknown as HTMLInputElement;
   const lowercase = passwordForm["lowercase"] as unknown as HTMLInputElement;
   const uppercase = passwordForm["uppercase"] as unknown as HTMLInputElement;
-  const symbols = passwordForm["uppercase"] as unknown as HTMLInputElement;
+  const symbols = passwordForm["symbols"] as unknown as HTMLInputElement;
 
   const passwordLength = parseInt(countCharacters.value, 10);
 
-  console.log(passwordLength);
-  console.log(numbers.checked);
-  console.log(lowercase.checked);
-  console.log(uppercase.checked);
-  console.log(symbols.checked);
+  // console.log(passwordLength);
+  // console.log(numbers.checked);
+  // console.log(lowercase.checked);
+  // console.log(uppercase.checked);
+  // console.log(symbols.checked);
 
   if (isNaN(passwordLength)) {
     countCharacters.value = "";
@@ -30,7 +37,14 @@ passwordForm!.addEventListener("submit", async (e) => {
     return;
   }
 
-  const password = generatePassword(passwordLength);
+  const checks: Check = {
+    numbers: numbers.checked,
+    lowercase: lowercase.checked,
+    uppercase: uppercase.checked,
+    symbols: symbols.checked,
+  };
+
+  const password = generatePassword(passwordLength, checks);
   //TODO: Generate the password
   console.log(password);
   input!.value = password;
@@ -68,9 +82,22 @@ const letters = [
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 const symbols = ["'", ":", "!", "@", "#", "$", "^", ")", "&", "*", "%", "-"];
 
-const arrayOfArrays = [letters, numbers, symbols];
+// const arrayOfArrays = [letters, numbers, symbols];
 
-function generatePassword(passwordLength: number) {
+function generatePassword(passwordLength: number = 10, checks: Check) {
+  let arrayOfArraysPre = [
+    checks.uppercase ? letters.map((item) => item.toUpperCase()) : [],
+    checks.lowercase ? letters : [],
+    checks.numbers ? numbers : [],
+    checks.symbols ? symbols : [],
+  ];
+
+  const arrayOfArrays = arrayOfArraysPre.filter((x) => {
+    return x.length;
+  });
+
+  console.log(arrayOfArrays);
+
   let strongPassword: any[] = [];
   for (let i = 0; i < passwordLength; i++) {
     const myArr = arrayOfArrays[getRandomNumber(0, arrayOfArrays.length - 1)];
